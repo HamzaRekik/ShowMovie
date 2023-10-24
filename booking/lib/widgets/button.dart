@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Button extends StatelessWidget {
   const Button({
     super.key,
-    required this.label,
+    required this.label, required Future<void> Function() onPressed,
   });
 
   final String label;

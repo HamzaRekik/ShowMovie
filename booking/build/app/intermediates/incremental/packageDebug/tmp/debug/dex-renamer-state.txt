@@ -1,0 +1,4 @@
+#Tue Oct 24 11:58:38 WAT 2023
+base.0=C\:\\src\\flutter-apps\\projet_flutter\\booking\\booking\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

@@ -1,10 +1,43 @@
-import 'package:booking/views/sign_up_view.dart';
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import '../views/sign_up_view.dart';
 import '../widgets/button.dart';
-import '../widgets/text_input.dart';
 
+// ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
+  late SharedPreferences prefs;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _motDePasseController = TextEditingController();
+  late String email;
+  late String motDePasse;
+  LoginPage({super.key});
+
+  Future<void> _onInscrire(BuildContext context) async {
+    if (_emailController.text.isEmpty || _motDePasseController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Veuillez remplir tous les champs'),
+        ),
+      );
+      return;
+    }
+
+    prefs = await SharedPreferences.getInstance();
+    email = prefs.getString("email")!;
+    motDePasse = prefs.getString("motDePasse")!;
+    if ((email != _emailController.text) &&
+        (motDePasse.isEmpty != _motDePasseController.text)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Veuillez remplir les champs correct'),
+        ),
+      );
+      return;
+    } else {
+      Navigator.of(context).pushReplacementNamed('/');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,97 +47,117 @@ class LoginPage extends StatelessWidget {
           color: Colors.white,
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Expanded(
-                  child: Image(
-                image: AssetImage("assets/travel.jpg"),
-                width: 700,
-                height: 700,
-              )),
+                child: Image.asset(
+                  "assets/travel.jpg",
+                  width: 700,
+                  height: 700,
+                ),
+              ),
               Expanded(
-                  child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Column(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: _emailController,
+                        decoration: const InputDecoration(
+                          labelText: 'Email',
+                          icon: Icon(Icons.mail),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      TextField(
+                        controller: _motDePasseController,
+                        decoration: const InputDecoration(
+                          labelText: 'Mot de passe',
+                          icon: Icon(Icons.lock),
+                        ),
+                        obscureText: true,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 200),
+                        child: Text("Mot de passe oublié ?"),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          _onInscrire(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF3DC5F7),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32)),
+                          fixedSize: const Size(340, 50),
+                        ),
+                        child: const Text("Se Connecter"),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushReplacementNamed('/sign-up');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(32),
+                            side: const BorderSide(color: Colors.black),
+                          ),
+                          fixedSize: const Size(340, 50),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/google.png"),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Text(
+                              "Google",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          TextInput(
-                            label: "Email",
-                            icon: Icon(Icons.mail),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          TextInput(
-                            label: "Password",
-                            icon: Icon(Icons.password_rounded),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 200),
-                            child: Text("Mot de passe oublié ?"),
-                          ),
-                          SizedBox(
-                            height: 25,
-                          ),
-                          Button(
-                            label: "Se Connecter",
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image(
-                                  image: AssetImage("assets/google.png"),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "Google",
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ],
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(32),
-                                  side: BorderSide(color: Colors.black)),
-                              fixedSize: Size(340, 50),
+                          Text("Vous n'avez pas de compte ?"),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/sign-up');
+                            },
+                            child: const Text(
+                              " S'inscrire",
+                              style: TextStyle(
+                                color: Color(0xFF3DC5F7),
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
-                          SizedBox(
-                            height: 12,
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Vous n'avez pas de compte ?"),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(builder: (context) {
-                                      return SignUpPage();
-                                    }));
-                                  },
-                                  child: Text(
-                                    " S'inscrire",
-                                    style: TextStyle(
-                                        color: Color(0xFF3DC5F7),
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                )
-                              ])
                         ],
-                      )))
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
