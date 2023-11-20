@@ -1,3 +1,4 @@
+import 'package:booking/services/authentication_service.dart';
 import 'package:booking/views/login_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ import 'views/trips_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const Booking());
+  runApp(Booking());
 }
 
 class Booking extends StatefulWidget {
@@ -65,6 +66,12 @@ class _BookingState extends State<Booking> {
 
   bool _isFavorite(String id) {
     return _favoriteTrips.any((trip) => trip.id == id);
+  }
+
+  @override
+  void initState() {
+    AuthenticationService().checkUserStatus();
+    super.initState();
   }
 
   @override

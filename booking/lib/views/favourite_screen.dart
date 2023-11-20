@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/trip.dart';
-import '../widget/trip_item.dart';
+import '../widgets/trip_item.dart';
 
 class FavouritScreen extends StatelessWidget {
   final List<Trip> favoriteTrip;

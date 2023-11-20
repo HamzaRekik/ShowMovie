@@ -1,12 +1,13 @@
+import 'package:booking/services/authentication_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
   late SharedPreferences prefs;
-  final TextEditingController _identifiantController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _motDePasseController = TextEditingController();
+  final TextEditingController username = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class SignUpPage extends StatelessWidget {
                   child: Column(
                     children: [
                       TextFormField(
-                        controller: _identifiantController,
+                        controller: username,
                         decoration: const InputDecoration(
                           labelText: 'Nom d\'utilisateur',
                           icon: Icon(Icons.person),
@@ -44,7 +45,7 @@ class SignUpPage extends StatelessWidget {
                       ),
                       // TextInput pour l'email
                       TextFormField(
-                        controller: _emailController,
+                        controller: email,
                         decoration: InputDecoration(
                           labelText: 'Email',
                           icon: Icon(Icons.mail),
@@ -53,21 +54,26 @@ class SignUpPage extends StatelessWidget {
                       SizedBox(
                         height: 15,
                       ),
-                      // TextInput pour le mot de passe
                       TextFormField(
-                        controller: _motDePasseController,
+                        controller: password,
                         decoration: InputDecoration(
                           labelText: 'Mot de passe',
                           icon: Icon(Icons.lock),
                         ),
-                        obscureText: true, // Pour masquer le mot de passe.
+                        obscureText: true,
                       ),
                       SizedBox(
                         height: 25,
                       ),
                       // Bouton pour s'inscrire
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          AuthenticationService().createAccount(
+                              emailAddress: email.text,
+                              password: password.text,
+                              username: username.text,
+                              context: context);
+                        },
                         child: Text("S'inscrire"),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF3DC5F7),

@@ -1,10 +1,11 @@
+import 'package:booking/services/authentication_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
   late SharedPreferences prefs;
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _motDePasseController = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class LoginPage extends StatelessWidget {
                   child: Column(
                     children: [
                       TextField(
-                        controller: _emailController,
+                        controller: email,
                         decoration: const InputDecoration(
                           labelText: 'Email',
                           icon: Icon(Icons.mail),
@@ -41,7 +42,7 @@ class LoginPage extends StatelessWidget {
                         height: 15,
                       ),
                       TextField(
-                        controller: _motDePasseController,
+                        controller: password,
                         decoration: const InputDecoration(
                           labelText: 'Mot de passe',
                           icon: Icon(Icons.lock),
@@ -59,7 +60,12 @@ class LoginPage extends StatelessWidget {
                         height: 25,
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          AuthenticationService().login(
+                              emailAddress: email.text,
+                              password: password.text,
+                              context: context);
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF3DC5F7),
                           shape: RoundedRectangleBorder(

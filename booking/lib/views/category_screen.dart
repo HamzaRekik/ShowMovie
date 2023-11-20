@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../app_data.dart';
-import '../widget/category_item.dart';
+import '../widgets/category_item.dart';
 
 class CatScreen extends StatelessWidget {
   const CatScreen({super.key});
- 
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

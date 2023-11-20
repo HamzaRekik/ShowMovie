@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/trip.dart';
-import '../widget/app_drawer.dart';
+import '../widgets/app_drawer.dart';
 import 'category_screen.dart';
 import 'favourite_screen.dart';
 
@@ -9,7 +9,7 @@ class TabsScreen extends StatefulWidget {
   final List<Trip> favoriteTrip;
   const TabsScreen(this.favoriteTrip, {super.key});
 
-  @override 
+  @override
   State<TabsScreen> createState() => _TabsScreenState();
 }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/trip.dart';
-import '../widget/trip_item.dart';
+import '../widgets/trip_item.dart';
 
 class TripsScreen extends StatefulWidget {
   final List<Trip> availableTrip;
@@ -10,7 +10,7 @@ class TripsScreen extends StatefulWidget {
     required this.availableTrip,
   }) : super(key: key);
 
-  @override 
+  @override
   State<TripsScreen> createState() => _TripsScreenState();
 }
 

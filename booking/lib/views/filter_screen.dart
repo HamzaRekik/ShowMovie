@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widget/app_drawer.dart';
+import '../widgets/app_drawer.dart';
 
 class FilterScreen extends StatefulWidget {
   final Function saveFilters;
