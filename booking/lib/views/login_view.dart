@@ -1,42 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../views/sign_up_view.dart';
-import '../widgets/button.dart';
 
-// ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
   late SharedPreferences prefs;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _motDePasseController = TextEditingController();
-  late String email;
-  late String motDePasse;
-  LoginPage({super.key});
-
-  Future<void> _onInscrire(BuildContext context) async {
-    if (_emailController.text.isEmpty || _motDePasseController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Veuillez remplir tous les champs'),
-        ),
-      );
-      return;
-    }
-
-    prefs = await SharedPreferences.getInstance();
-    email = prefs.getString("email")!;
-    motDePasse = prefs.getString("motDePasse")!;
-    if ((email != _emailController.text) &&
-        (motDePasse.isEmpty != _motDePasseController.text)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Veuillez remplir les champs correct'),
-        ),
-      );
-      return;
-    } else {
-      Navigator.of(context).pushReplacementNamed('/');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,9 +59,7 @@ class LoginPage extends StatelessWidget {
                         height: 25,
                       ),
                       ElevatedButton(
-                        onPressed: () {
-                          _onInscrire(context);
-                        },
+                        onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF3DC5F7),
                           shape: RoundedRectangleBorder(

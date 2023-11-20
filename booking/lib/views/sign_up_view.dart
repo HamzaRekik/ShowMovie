@@ -1,37 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// ignore: must_be_immutable
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
   late SharedPreferences prefs;
   final TextEditingController _identifiantController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _motDePasseController = TextEditingController();
-
-  Future<void> _onInscrire(BuildContext context) async {
-    final identifiant = _identifiantController.text;
-    final email = _emailController.text;
-    final motDePasse = _motDePasseController.text;
-
-    if (identifiant.isEmpty || email.isEmpty || motDePasse.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Veuillez remplir tous les champs'),
-        ),
-      );
-      return;
-    }
-
-    prefs = await SharedPreferences.getInstance();
-    prefs.setString('identifiant', identifiant);
-    prefs.setString('email', email);
-    prefs.setString('motDePasse', motDePasse);
-    prefs.setBool('connecte', true);
-
-    Navigator.of(context).pushReplacementNamed(
-        '/login'); // Remplacez '/accueil' par la route de votre page d'accueil.
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +32,6 @@ class SignUpPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Column(
                     children: [
-                      // TextInput pour le nom d'utilisateur
                       TextFormField(
                         controller: _identifiantController,
                         decoration: const InputDecoration(
@@ -93,9 +67,7 @@ class SignUpPage extends StatelessWidget {
                       ),
                       // Bouton pour s'inscrire
                       ElevatedButton(
-                        onPressed: () {
-                          _onInscrire(context);
-                        },
+                        onPressed: () {},
                         child: Text("S'inscrire"),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF3DC5F7),

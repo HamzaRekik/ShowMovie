@@ -1,4 +1,5 @@
 import 'package:booking/views/login_view.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'app_data.dart';
@@ -9,7 +10,9 @@ import 'views/sign_up_view.dart';
 import 'views/tabs_screen.dart';
 import 'views/trips_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const Booking());
 }
 
