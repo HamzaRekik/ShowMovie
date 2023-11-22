@@ -1,10 +1,8 @@
 import 'package:booking/services/authentication_service.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
-  late SharedPreferences prefs;
   final TextEditingController username = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();

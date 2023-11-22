@@ -14,16 +14,9 @@ class MoviesBuilder extends StatefulWidget {
 class _MoviesBuilderState extends State<MoviesBuilder> {
   var movies;
 
-  checkQuery() {
-    if (widget.title == null) {
-      return MoviesService(Dio()).getMovies();
-    } else
-      return MoviesService(Dio()).getMovies(title: widget.title);
-  }
-
   @override
   void initState() {
-    movies = checkQuery();
+    movies = MoviesService(Dio()).getMovies();
     super.initState();
   }
 
