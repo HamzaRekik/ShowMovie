@@ -1,3 +1,4 @@
+import 'package:booking/views/single_movie_page.dart';
 import 'package:booking/widgets/movie_widget.dart';
 import 'package:flutter/material.dart';
 import '../models/movies.dart';
@@ -30,8 +31,15 @@ class MoviesList extends StatelessWidget {
         SliverList(
           delegate: SliverChildBuilderDelegate(childCount: movies.length,
               (context, index) {
-            return MovieWidget(
-              movie: movies[index],
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return MovieDetailPage(movie: movies[index]);
+                }));
+              },
+              child: MovieWidget(
+                movie: movies[index],
+              ),
             );
           }),
         ),

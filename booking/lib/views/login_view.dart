@@ -79,8 +79,7 @@ class LoginPage extends StatelessWidget {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacementNamed('/sign-up');
+                            AuthenticationService().loginWithGoogle(context);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,

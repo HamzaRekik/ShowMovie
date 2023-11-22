@@ -20,7 +20,14 @@ class _MoviezSearchListBuilderState extends State<MoviezSearchListBuilder> {
   @override
   Widget build(BuildContext context) {
     if (widget.movies.isEmpty) {
-      return SliverToBoxAdapter(child: Center(child: Text("try searching")));
+      return SliverToBoxAdapter(
+          child: SizedBox(
+              height: 500,
+              child: Center(
+                  child: Text(
+                "Find every movie you want...",
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+              ))));
     } else {
       return SearchedMoviesList(movies: widget.movies);
     }

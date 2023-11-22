@@ -36,10 +36,10 @@ class AuthenticationService {
       await Future.delayed(Duration(seconds: 1), () {
         return ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            backgroundColor: Color(0xFF4163CD),
+            backgroundColor: Colors.deepPurple,
             content: Text(
               'Your account has been created successfully !',
-              style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
+              style: TextStyle(color: Colors.white),
             ),
             behavior: SnackBarBehavior.floating,
             duration: Duration(seconds: 2),
@@ -53,10 +53,10 @@ class AuthenticationService {
       } else if (e.code == 'email-already-in-use') {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            backgroundColor: Color(0xFF4163CD),
+            backgroundColor: Colors.deepPurple,
             content: Text(
               'The email you provided already used.',
-              style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
+              style: TextStyle(color: Colors.white),
             ),
             behavior: SnackBarBehavior.floating,
             duration: Duration(seconds: 2),
@@ -77,7 +77,7 @@ class AuthenticationService {
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          backgroundColor: Color(0xFF4163CD),
+          backgroundColor: Colors.deepPurple,
           content: Text(
             'Invalid login credentials. Please check your email and password.',
             style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
@@ -106,7 +106,7 @@ class AuthenticationService {
       );
 
       await FirebaseAuth.instance.signInWithCredential(credential);
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/');
     } on FirebaseAuthException catch (e) {
       print(e.message);
     }
@@ -114,10 +114,9 @@ class AuthenticationService {
 
   logout() async {
     GoogleSignIn googleSignIn = GoogleSignIn();
-    if (googleSignIn.currentUser != null) {
-      googleSignIn.disconnect();
-    }
+
     await FirebaseAuth.instance.signOut();
+    googleSignIn.disconnect();
   }
 
   userStatus() {
@@ -133,7 +132,7 @@ class AuthenticationService {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          backgroundColor: Color(0xFF4163CD),
+          backgroundColor: Colors.deepPurple,
           behavior: SnackBarBehavior.floating,
           content: Text(
             'Password reset email sent successfully!',

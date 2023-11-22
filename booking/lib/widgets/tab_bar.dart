@@ -3,7 +3,6 @@ import 'package:booking/views/home.dart';
 import 'package:booking/views/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
-import 'package:circular_bottom_navigation/tab_item.dart';
 
 import '../config/tab_items.dart';
 import '../views/account_page.dart';
@@ -37,6 +36,7 @@ class _CircularTabBarState extends State<CircularTabBar> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Movies'),
+        elevation: 0,
         centerTitle: true,
       ),
       body: Stack(children: [
