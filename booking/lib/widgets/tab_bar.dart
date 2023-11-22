@@ -35,6 +35,10 @@ class _CircularTabBarState extends State<CircularTabBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Movies'),
+        centerTitle: true,
+      ),
       body: Stack(children: [
         PageView(
           controller: _pageController,
