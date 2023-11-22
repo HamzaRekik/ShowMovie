@@ -43,6 +43,8 @@ dependencies:
   firebase_messaging: ^14.7.4
   firebase_auth: ^4.14.0
   google_sign_in: ^6.1.6
+  circular_bottom_navigation: ^2.3.0
+  dio: ^5.3.4
   
 
 dev_dependencies:

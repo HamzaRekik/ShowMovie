@@ -123,9 +123,9 @@ class AuthenticationService {
   userStatus() {
     FirebaseAuth _auth = FirebaseAuth.instance;
     if (_auth.currentUser == null)
-      return true;
-    else
       return false;
+    else
+      return true;
   }
 
   resetPassword({required email, context}) async {
