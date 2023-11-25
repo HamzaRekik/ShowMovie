@@ -3,7 +3,6 @@ import 'package:booking/views/home.dart';
 import 'package:booking/views/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
-
 import '../config/tab_items.dart';
 import '../views/account_page.dart';
 

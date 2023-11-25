@@ -2,25 +2,38 @@ import 'package:flutter/material.dart';
 
 import '../models/movies.dart';
 
-class MovieDetailPage extends StatelessWidget {
+class MovieDetailPage extends StatefulWidget {
   final Movie movie;
 
   MovieDetailPage({required this.movie});
 
   @override
+  State<MovieDetailPage> createState() => _MovieDetailPageState();
+}
+
+class _MovieDetailPageState extends State<MovieDetailPage> {
+  bool isFavorite = false;
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          setState(() {
+            isFavorite = !isFavorite;
+          });
+        },
         backgroundColor: Colors.deepPurple,
-        child: Icon(Icons.favorite),
+        child: isFavorite
+            ? Icon(Icons.favorite)
+            : Icon(Icons.favorite_border_outlined),
       ),
       body: Column(
         children: [
           Expanded(
             child: Image(
-              image:
-                  NetworkImage("https://image.tmdb.org/t/p/w500${movie.image}"),
+              image: NetworkImage(
+                  "https://image.tmdb.org/t/p/w500${widget.movie.image}"),
               fit: BoxFit.cover,
             ),
           ),
@@ -31,12 +44,12 @@ class MovieDetailPage extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(height: 20),
-                  Text("Rate: ${movie.rate.round()}"),
+                  Text("Rate: ${widget.movie.rate.round()}"),
                   SizedBox(height: 10),
-                  Text("Release Date: ${movie.date}"),
+                  Text("Release Date: ${widget.movie.date}"),
                   SizedBox(height: 10),
                   Text(
-                    movie.description,
+                    widget.movie.description,
                     style: TextStyle(fontSize: 15),
                   ),
                 ],
