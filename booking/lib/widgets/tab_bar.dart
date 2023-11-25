@@ -1,12 +1,19 @@
 import 'package:booking/views/favorits_page.dart';
 import 'package:booking/views/home.dart';
 import 'package:booking/views/search_page.dart';
+import 'package:booking/views/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import '../config/tab_items.dart';
-import '../views/account_page.dart';
 
 class CircularTabBar extends StatefulWidget {
+
+  final Function toggleTheme;
+  final bool isDarkMode;
+
+  const CircularTabBar(
+      {super.key, required this.toggleTheme, required this.isDarkMode});
+
   @override
   _CircularTabBarState createState() => _CircularTabBarState();
 }
@@ -47,7 +54,7 @@ class _CircularTabBarState extends State<CircularTabBar> {
               _navigationController.value = index;
             });
           },
-          children: [Home(), SearchView(), FavoritsView(), AccountView()],
+          children: [Home(toggleTheme:widget.toggleTheme, isDarkMode: widget.isDarkMode), SearchView(toggleTheme:widget.toggleTheme, isDarkMode: widget.isDarkMode), FavoritsView(toggleTheme:widget.toggleTheme, isDarkMode: widget.isDarkMode), Settings(toggleTheme:widget.toggleTheme, isDarkMode: widget.isDarkMode)],
         ),
         Positioned(
           bottom: 0,

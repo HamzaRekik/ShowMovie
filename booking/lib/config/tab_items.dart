@@ -8,6 +8,6 @@ List<TabItem> tabItems = List.of([
       labelStyle: TextStyle(fontWeight: FontWeight.normal)),
   TabItem(Icons.favorite, "Favorites", Colors.deepPurple,
       labelStyle: TextStyle(fontWeight: FontWeight.normal)),
-  TabItem(Icons.supervised_user_circle, "Account", Colors.deepPurple,
+  TabItem(Icons.settings, "Settings", Colors.deepPurple,
       labelStyle: TextStyle(fontWeight: FontWeight.normal)),
 ]);
