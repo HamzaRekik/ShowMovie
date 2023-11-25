@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AccountView extends StatefulWidget {
+  final Function toggleTheme;
+  final bool isDarkMode;
+
+  const AccountView(
+      {super.key, required this.toggleTheme, required this.isDarkMode});
   @override
   State<AccountView> createState() => _AccountViewState();
 }
@@ -94,15 +99,6 @@ class _AccountViewState extends State<AccountView> {
             Text(
               userData['email'] ?? '',
               style: const TextStyle(fontSize: 18),
-            ),
-            const SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: () {
-                AuthenticationService().logout();
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/login', (route) => false);
-              },
-              child: const Text('Logout'),
             ),
           ],
         ),

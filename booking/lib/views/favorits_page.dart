@@ -5,6 +5,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FavoritsView extends StatefulWidget {
+  final Function toggleTheme;
+  final bool isDarkMode;
+
+  const FavoritsView(
+      {super.key, required this.toggleTheme, required this.isDarkMode});
+
   @override
   State<FavoritsView> createState() => _MoviesBuilderState();
 }

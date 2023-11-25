@@ -2,6 +2,7 @@ import 'package:booking/services/authentication_service.dart';
 import 'package:booking/views/account_page.dart';
 import 'package:booking/views/favorits_page.dart';
 import 'package:booking/views/login_view.dart';
+import 'package:booking/views/settings.dart';
 import 'package:booking/widgets/tab_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,20 +28,45 @@ class _BookingState extends State<Booking> {
     super.initState();
   }
 
+  bool _isDarkMode = false;
+
+  void toggleTheme() {
+    setState(() {
+      _isDarkMode = !_isDarkMode;
+    });
+  }
+
+  final ThemeData _lightTheme =
+      ThemeData(primarySwatch: Colors.blue, brightness: Brightness.light);
+
+  final ThemeData _darkTheme =
+      ThemeData(primarySwatch: Colors.blue, brightness: Brightness.dark);
+
   @override
   Widget build(BuildContext context) {
+    final themeData = _isDarkMode ? _darkTheme : _lightTheme;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      theme: themeData,
       initialRoute: AuthenticationService().userStatus() ? '/' : '/login',
       routes: {
-        '/': (context) => CircularTabBar(),
+        '/': (context) => CircularTabBar(
+              toggleTheme: toggleTheme,
+              isDarkMode: _isDarkMode,
+            ),
         '/login': (context) => LoginPage(),
         '/sign-up': (context) => SignUpPage(),
-        '/profile':(context)=>AccountView(),
-        '/favorite':(context)=>FavoritsView(),
+        '/profile': (context) => AccountView(
+              toggleTheme: toggleTheme,
+              isDarkMode: _isDarkMode,
+            ),
+        '/favorite': (context) =>
+            FavoritsView(toggleTheme: toggleTheme, isDarkMode: _isDarkMode),
+        '/settings': (context) => Settings(
+              toggleTheme: toggleTheme,
+              isDarkMode: _isDarkMode,
+            ),
       },
     );
   }

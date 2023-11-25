@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import '../widgets/searched_movies_builder.dart';
 
 class SearchView extends StatefulWidget {
+  final Function toggleTheme;
+  final bool isDarkMode;
+
+  const SearchView(
+      {super.key, required this.toggleTheme, required this.isDarkMode});
   @override
   State<SearchView> createState() => _SearchViewState();
 }
