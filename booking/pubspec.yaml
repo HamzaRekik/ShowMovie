@@ -45,6 +45,7 @@ dependencies:
   google_sign_in: ^6.1.6
   circular_bottom_navigation: ^2.3.0
   dio: ^5.3.4
+  image_picker: ^1.0.4
   
 
 dev_dependencies:

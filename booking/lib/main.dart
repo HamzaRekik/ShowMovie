@@ -1,4 +1,6 @@
 import 'package:booking/services/authentication_service.dart';
+import 'package:booking/views/account_page.dart';
+import 'package:booking/views/favorits_page.dart';
 import 'package:booking/views/login_view.dart';
 import 'package:booking/widgets/tab_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -37,6 +39,8 @@ class _BookingState extends State<Booking> {
         '/': (context) => CircularTabBar(),
         '/login': (context) => LoginPage(),
         '/sign-up': (context) => SignUpPage(),
+        '/profile':(context)=>AccountView(),
+        '/favorite':(context)=>FavoritsView(),
       },
     );
   }

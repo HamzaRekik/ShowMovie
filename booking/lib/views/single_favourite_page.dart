@@ -1,18 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../models/movies.dart';
 
-class MovieDetailPage extends StatefulWidget {
-  final Movie movie;
+class FavouriteDetailPage extends StatefulWidget {
+  final Map<String, dynamic> movie;
 
-  MovieDetailPage({required this.movie});
+  FavouriteDetailPage({required this.movie});
 
   @override
-  State<MovieDetailPage> createState() => _MovieDetailPageState();
+  State<FavouriteDetailPage> createState() => _MovieDetailPageState();
 }
 
-class _MovieDetailPageState extends State<MovieDetailPage> {
+class _MovieDetailPageState extends State<FavouriteDetailPage> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   bool isMovieAdded = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -30,7 +29,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       if (user != null) {
         QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
             .collection('films')
-            .where('title', isEqualTo: widget.movie.title)
+            .where('title', isEqualTo: widget.movie['title'])
             .where('userId', isEqualTo: user.uid)
             .limit(1)
             .get();
@@ -76,11 +75,11 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     DocumentReference filmRef = _firestore.collection('films').doc();
 
     await filmRef.set({
-      'image': widget.movie.image,
-      'title': widget.movie.title,
-      'rate': widget.movie.rate,
-      'date': widget.movie.date,
-      'description': widget.movie.description,
+      'image': widget.movie['image'],
+      'title': widget.movie['title'],
+      'rate': widget.movie['rate'],
+      'date': widget.movie['date'],
+      'description': widget.movie['description'],
       'idf': postId,
       'userId': user?.uid
     });
@@ -100,7 +99,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   Future<void> _removeMovieFromFavorites() async {
     QuerySnapshot querySnapshot = await _firestore
         .collection('films')
-        .where('title', isEqualTo: widget.movie.title)
+        .where('title', isEqualTo: widget.movie['title'])
         .get();
 
     querySnapshot.docs.forEach((doc) {
@@ -117,6 +116,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
         duration: Duration(seconds: 2),
       ),
     );
+    Navigator.of(context).pushReplacementNamed('/');
   }
 
   @override
@@ -137,7 +137,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           Expanded(
             child: Image(
               image: NetworkImage(
-                  "https://image.tmdb.org/t/p/w500${widget.movie.image}"),
+                  "https://image.tmdb.org/t/p/w500${widget.movie['image']}"),
               fit: BoxFit.cover,
             ),
           ),
@@ -148,12 +148,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
               child: Column(
                 children: [
                   SizedBox(height: 20),
-                  Text("Rate: ${widget.movie.rate.round()}"),
+                  Text("Rate: ${widget.movie['rate'].round()}"),
                   SizedBox(height: 10),
-                  Text("Release Date: ${widget.movie.date}"),
+                  Text("Release Date: ${widget.movie['date']}"),
                   SizedBox(height: 10),
                   Text(
-                    widget.movie.description,
+                    widget.movie['description'],
                     style: TextStyle(fontSize: 15),
                   ),
                 ],

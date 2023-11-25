@@ -29,9 +29,11 @@ class AuthenticationService {
       );
       User? user = credential.user;
       user!.updateDisplayName(username);
-      await FirebaseFirestore.instance.collection('users').doc(user?.uid).set({
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+        'uid': user.uid,
         'username': username,
         'email': emailAddress,
+        'image': null,
       });
       await Future.delayed(Duration(seconds: 1), () {
         return ScaffoldMessenger.of(context).showSnackBar(
