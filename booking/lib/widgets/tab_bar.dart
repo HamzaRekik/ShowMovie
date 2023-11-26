@@ -5,9 +5,9 @@ import 'package:booking/views/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import '../config/tab_items.dart';
+import '../views/local_data.dart';
 
 class CircularTabBar extends StatefulWidget {
-
   final Function toggleTheme;
   final bool isDarkMode;
 
@@ -41,6 +41,7 @@ class _CircularTabBarState extends State<CircularTabBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
         title: Text('Movies'),
         elevation: 0,
         centerTitle: true,
@@ -54,7 +55,18 @@ class _CircularTabBarState extends State<CircularTabBar> {
               _navigationController.value = index;
             });
           },
-          children: [Home(toggleTheme:widget.toggleTheme, isDarkMode: widget.isDarkMode), SearchView(toggleTheme:widget.toggleTheme, isDarkMode: widget.isDarkMode), FavoritsView(toggleTheme:widget.toggleTheme, isDarkMode: widget.isDarkMode), Settings(toggleTheme:widget.toggleTheme, isDarkMode: widget.isDarkMode)],
+          children: [
+            Home(
+                toggleTheme: widget.toggleTheme, isDarkMode: widget.isDarkMode),
+            SearchView(
+                toggleTheme: widget.toggleTheme, isDarkMode: widget.isDarkMode),
+            FavoritsView(
+                toggleTheme: widget.toggleTheme, isDarkMode: widget.isDarkMode),
+            LocalData(
+                toggleTheme: widget.toggleTheme, isDarkMode: widget.isDarkMode),
+            Settings(
+                toggleTheme: widget.toggleTheme, isDarkMode: widget.isDarkMode)
+          ],
         ),
         Positioned(
           bottom: 0,

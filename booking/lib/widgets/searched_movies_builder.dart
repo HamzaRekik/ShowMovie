@@ -1,7 +1,7 @@
 import 'package:booking/widgets/searched_movies_list.dart';
 import 'package:flutter/material.dart';
 
-import '../models/movies.dart';
+import '../models/models.dart';
 
 class MoviezSearchListBuilder extends StatefulWidget {
   const MoviezSearchListBuilder({

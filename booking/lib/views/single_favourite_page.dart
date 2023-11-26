@@ -52,10 +52,8 @@ class _MovieDetailPageState extends State<FavouriteDetailPage> {
   Future<void> _toggleMovieStatus() async {
     try {
       if (!isMovieAdded) {
-        // Adding movie details to Firestore
         await _addMovieToFavorites();
       } else {
-        // Removing movie details from Firestore
         await _removeMovieFromFavorites();
       }
     } catch (e) {

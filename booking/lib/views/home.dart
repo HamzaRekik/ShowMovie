@@ -9,8 +9,6 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        //color: Colors.grey[100],
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: MoviesBuilder());
+        padding: EdgeInsets.symmetric(horizontal: 10), child: MoviesBuilder());
   }
 }

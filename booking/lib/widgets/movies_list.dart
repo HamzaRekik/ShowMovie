@@ -1,7 +1,7 @@
 import 'package:booking/views/single_movie_page.dart';
 import 'package:booking/widgets/movie_widget.dart';
 import 'package:flutter/material.dart';
-import '../models/movies.dart';
+import '../models/models.dart';
 
 class MoviesList extends StatelessWidget {
   MoviesList({required this.movies});
@@ -12,7 +12,7 @@ class MoviesList extends StatelessWidget {
     return CustomScrollView(
       physics: BouncingScrollPhysics(),
       slivers: [
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: SizedBox(
             height: 35,
           ),

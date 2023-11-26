@@ -3,7 +3,7 @@ import 'package:booking/widgets/movies_list.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../models/movies.dart';
+import '../models/models.dart';
 
 class MoviesBuilder extends StatefulWidget {
   String? title;
@@ -33,7 +33,9 @@ class _MoviesBuilderState extends State<MoviesBuilder> {
             return Text("error");
           } else
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Colors.deepPurple,
+              ),
             );
         });
   }

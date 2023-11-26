@@ -1,40 +1,32 @@
+import 'package:booking/models/models.dart';
 import 'package:flutter/material.dart';
 
 class FavouriteMovie extends StatelessWidget {
   const FavouriteMovie({
+    // required this.movie,
     super.key,
   });
+  // final Movie movie;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {},
       child: Container(
-        height: 200,
-        child: Column(
-          children: [
-            Expanded(
-              flex: 2,
-              child: Image.network(
-                'https://image.tmdb.org/t/p/w500/ctMserH8g2SeOAnCw5gFjdQF8mo.jpg',
-                fit: BoxFit.cover,
-              ),
-            ),
-            const Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "hom",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("hello"),
-            ),
-          ],
-        ),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: NetworkImage(
+              "https://image.tmdb.org/t/p/w500/ykl4EIbQIddiBYTrq5hghgDL9Ky.jpg"),
+          fit: BoxFit.cover,
+        )),
+        child: Center(
+            child: IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.favorite,
+                  color: Colors.deepPurple,
+                  size: 37,
+                ))),
       ),
     );
   }

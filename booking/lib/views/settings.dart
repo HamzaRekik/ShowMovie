@@ -1,8 +1,6 @@
 import 'package:booking/views/account_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:booking/services/authentication_service.dart';
-import 'package:booking/views/privacy.dart';
 
 class Settings extends StatefulWidget {
   final Function toggleTheme;
@@ -17,7 +15,6 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  
   void _navigateToProfilePage() {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -26,18 +23,6 @@ class _SettingsState extends State<Settings> {
       ),
     );
   }
-
-  void _navigateToPrivacy() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => PrivacySettingsPage(),
-      ),
-    );
-  }
-
-
-
-  bool get userLoggedIn => FirebaseAuth.instance.currentUser != null;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +33,7 @@ class _SettingsState extends State<Settings> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "Settings",
                 style: TextStyle(
                   fontSize: 30,
@@ -63,12 +48,12 @@ class _SettingsState extends State<Settings> {
                 leading: Container(
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.lightBlue.shade100,
+                    color: Colors.deepPurple,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     Icons.person,
-                    color: Colors.lightBlue,
+                    color: Colors.white,
                     size: 35,
                   ),
                 ),
@@ -89,14 +74,12 @@ class _SettingsState extends State<Settings> {
                 leading: Container(
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: widget.isDarkMode
-                        ? Colors.black
-                        : Colors.amber.shade100,
+                    color: Colors.deepPurple,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     widget.isDarkMode ? Icons.dark_mode : Icons.light_mode,
-                    color: widget.isDarkMode ? Colors.white : Colors.amber,
+                    color: Colors.white,
                     size: 35,
                   ),
                 ),
@@ -110,60 +93,33 @@ class _SettingsState extends State<Settings> {
                 trailing: Icon(Icons.arrow_forward_ios_rounded),
               ),
               SizedBox(height: 20),
+              Divider(height: 40),
               ListTile(
                 onTap: () {
-                  _navigateToPrivacy();
+                  AuthenticationService().logout();
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/login', (route) => false);
                 },
                 leading: Container(
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.indigo.shade100,
+                    color: Colors.deepPurple,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    Icons.privacy_tip_outlined,
-                    color: Colors.indigo,
+                    Icons.output_outlined,
+                    color: Colors.white,
                     size: 35,
                   ),
                 ),
                 title: Text(
-                  "Privacy",
+                  "Log Out",
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 20,
                   ),
                 ),
-                trailing: Icon(Icons.arrow_forward_ios_rounded),
               ),
-              
-              Divider(height: 40),
-              if (userLoggedIn)
-                ListTile(
-                  onTap: () {
-                    AuthenticationService().logout();
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/login', (route) => false);
-                  },
-                  leading: Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.redAccent.shade100,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.output_outlined,
-                      color: Colors.redAccent,
-                      size: 35,
-                    ),
-                  ),
-                  title: Text(
-                    "Log Out",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
             ],
           ),
         ),

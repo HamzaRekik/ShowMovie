@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/movies.dart';
+import '../models/models.dart';
 
 class MovieWidget extends StatelessWidget {
   MovieWidget({required this.movie});

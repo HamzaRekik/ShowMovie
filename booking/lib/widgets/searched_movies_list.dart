@@ -1,4 +1,4 @@
-import 'package:booking/models/movies.dart';
+import 'package:booking/models/models.dart';
 import 'package:booking/views/single_movie_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

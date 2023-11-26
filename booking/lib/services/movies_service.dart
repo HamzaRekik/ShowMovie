@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../models/movies.dart';
+import '../models/models.dart';
 
 class MoviesService {
   Dio dio;
@@ -27,7 +27,7 @@ class MoviesService {
       }
 
       for (var movie in response.data['results']) {
-        if (movie["poster_path"] != null) {
+        if (movie["poster_path"] != null && movie["backdrop_path"] != null) {
           Movie m = Movie.fromJson(movie);
           movies.add(m);
         }

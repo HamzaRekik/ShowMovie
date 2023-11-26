@@ -1,8 +1,6 @@
 import 'package:booking/services/authentication_service.dart';
-import 'package:booking/views/edit_profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AccountView extends StatefulWidget {
   final Function toggleTheme;
@@ -15,90 +13,52 @@ class AccountView extends StatefulWidget {
 }
 
 class _AccountViewState extends State<AccountView> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  Map<String, dynamic> userData = {};
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  User? user;
 
   @override
   void initState() {
     super.initState();
-    _loadUserData();
-  }
-
-  Future<void> _loadUserData() async {
-    try {
-      User? user = _auth.currentUser;
-
-      if (user != null) {
-        DocumentSnapshot snapshot =
-            await _firestore.collection('users').doc(user.uid).get();
-
-        if (snapshot.exists) {
-          userData = snapshot.data() as Map<String, dynamic>;
-          setState(() {});
-        }
-      }
-    } catch (e) {
-      print('Error loading user data: $e');
-    }
+    user = _auth.currentUser;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
+        elevation: 0,
+        title: Text('Account'),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Stack(
-              alignment: Alignment.bottomLeft,
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 70,
-                  backgroundImage: userData['image'] != null
-                      ? NetworkImage(userData['image']) as ImageProvider
-                      : const NetworkImage(
-                          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png'),
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              EditProfilePage(userData: userData),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Color(0xFF4163CD),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            CircleAvatar(
+              radius: 50,
+              backgroundImage: NetworkImage(user?.photoURL ??
+                  "https://cdn-icons-png.flaticon.com/512/149/149071.png"),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Text(
-              userData['username'] ?? '',
-              style: const TextStyle(fontSize: 18),
+              user?.displayName ?? "",
+              style: TextStyle(fontSize: 18),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             Text(
-              userData['email'] ?? '',
-              style: const TextStyle(fontSize: 18),
+              user?.email ?? "",
+              style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(height: 40),
+            ElevatedButton(
+              style:
+                  ElevatedButton.styleFrom(backgroundColor: Colors.deepPurple),
+              onPressed: () async {
+                AuthenticationService().logout();
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/login', (route) => false);
+              },
+              child: Text('Sign Out'),
             ),
           ],
         ),
