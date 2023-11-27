@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import '../models/models.dart';
 
 class MoviesList extends StatelessWidget {
-  MoviesList({required this.movies});
-  List<Movie> movies;
+  MoviesList({super.key, required this.movies});
+  final List<Movie> movies;
 
   @override
   Widget build(BuildContext context) {

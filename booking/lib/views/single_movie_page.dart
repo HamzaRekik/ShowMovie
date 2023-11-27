@@ -1,3 +1,4 @@
+import 'package:booking/services/favourite_movies_service.dart';
 import 'package:flutter/material.dart';
 import '../models/models.dart';
 
@@ -10,34 +11,91 @@ class MovieDetailPage extends StatefulWidget {
   State<MovieDetailPage> createState() => _MovieDetailPageState();
 }
 
-nummberToStars(int nub) {
-  Icon(Icons.star_border_outlined);
-}
-
 class _MovieDetailPageState extends State<MovieDetailPage> {
-  bool isFavorite = false;
+  var movieID;
+  bool isFavorite = true;
+
+  @override
+  void initState() {
+    super.initState();
+    checkExistance();
+    getMovieID();
+  }
+
+  Future<void> checkExistance() async {
+    var isSelected = await FavouriteMoviesService()
+        .checkFavouriteExistence(movie: widget.movie);
+
+    setState(() {
+      isFavorite = !isSelected;
+    });
+  }
+
+  Future<void> getMovieID() async {
+    var id =
+        await FavouriteMoviesService().getMovieIdByTitle(widget.movie.title);
+    setState(() {
+      movieID = id;
+    });
+  }
+
+  Future<void> deleteFromFvourite(String id) async {
+    await FavouriteMoviesService().deleteFromFavourite(movieId: id);
+    setState(() {
+      isFavorite = true;
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.deepPurple,
+        content: Text(
+          '${widget.movie.title} removed from favourits.',
+          style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
+        ),
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  Future<void> selectMovie(Movie movie) async {
+    var id = await FavouriteMoviesService().addToFavourite(movie: movie);
+    setState(() {
+      movieID = id;
+      isFavorite = false;
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.deepPurple,
+        content: Text(
+          '${widget.movie.title} added to your favorits!',
+          style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
+        ),
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            isFavorite = !isFavorite;
-          });
+          isFavorite ? selectMovie(widget.movie) : deleteFromFvourite(movieID);
         },
         backgroundColor: Colors.deepPurple,
         child: isFavorite
-            ? Icon(Icons.favorite)
-            : Icon(Icons.favorite_border_outlined),
+            ? Icon(Icons.favorite_outline_outlined)
+            : Icon(Icons.favorite),
       ),
       body: Column(
-        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Image(
-              image: NetworkImage(
-                  "https://image.tmdb.org/t/p/w500${widget.movie.image}"),
+            child: Image.network(
+              "https://image.tmdb.org/t/p/w500${widget.movie.image}",
               fit: BoxFit.cover,
             ),
           ),

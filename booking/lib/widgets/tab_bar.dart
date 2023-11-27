@@ -1,4 +1,4 @@
-import 'package:booking/views/favorits_page.dart';
+import 'package:booking/views/favourits_page.dart';
 import 'package:booking/views/home.dart';
 import 'package:booking/views/search_page.dart';
 import 'package:booking/views/settings.dart';
@@ -19,16 +19,13 @@ class CircularTabBar extends StatefulWidget {
 }
 
 class _CircularTabBarState extends State<CircularTabBar> {
-  int _currentIndex = 0;
-
   late final CircularBottomNavigationController _navigationController;
-  late PageController _pageController =
-      PageController(initialPage: _currentIndex);
+  late PageController _pageController = PageController(initialPage: 0);
 
   @override
   void initState() {
     super.initState();
-    _navigationController = CircularBottomNavigationController(_currentIndex);
+    _navigationController = CircularBottomNavigationController(0);
   }
 
   @override
@@ -51,7 +48,6 @@ class _CircularTabBarState extends State<CircularTabBar> {
           controller: _pageController,
           onPageChanged: (index) {
             setState(() {
-              _currentIndex = index;
               _navigationController.value = index;
             });
           },
@@ -60,8 +56,7 @@ class _CircularTabBarState extends State<CircularTabBar> {
                 toggleTheme: widget.toggleTheme, isDarkMode: widget.isDarkMode),
             SearchView(
                 toggleTheme: widget.toggleTheme, isDarkMode: widget.isDarkMode),
-            FavoritsView(
-                toggleTheme: widget.toggleTheme, isDarkMode: widget.isDarkMode),
+            Favourits(),
             LocalData(
                 toggleTheme: widget.toggleTheme, isDarkMode: widget.isDarkMode),
             Settings(
@@ -75,9 +70,8 @@ class _CircularTabBarState extends State<CircularTabBar> {
             controller: _navigationController,
             selectedCallback: (selectedPos) {
               setState(() {
-                _currentIndex = selectedPos!;
                 _pageController.animateToPage(
-                  _currentIndex,
+                  selectedPos!,
                   duration: Duration(milliseconds: 300),
                   curve: Curves.bounceInOut,
                 );

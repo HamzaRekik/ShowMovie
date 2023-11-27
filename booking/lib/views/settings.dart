@@ -6,9 +6,11 @@ class Settings extends StatefulWidget {
   final Function toggleTheme;
   final bool isDarkMode;
 
-  const Settings(
-      {Key? key, required this.toggleTheme, required this.isDarkMode})
-      : super(key: key);
+  const Settings({
+    Key? key,
+    required this.toggleTheme,
+    required this.isDarkMode,
+  }) : super(key: key);
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -19,7 +21,9 @@ class _SettingsState extends State<Settings> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => AccountView(
-            toggleTheme: widget.toggleTheme, isDarkMode: widget.isDarkMode),
+          toggleTheme: widget.toggleTheme,
+          isDarkMode: widget.isDarkMode,
+        ),
       ),
     );
   }
@@ -28,102 +32,76 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Settings",
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w500,
-                ),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Settings",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w500,
               ),
-              SizedBox(height: 30),
-              ListTile(
-                onTap: () {
-                  _navigateToProfilePage();
-                },
-                leading: Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.deepPurple,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 35,
-                  ),
-                ),
-                title: Text(
-                  "Profile",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20,
-                  ),
-                ),
-                trailing: Icon(Icons.arrow_forward_ios_rounded),
-              ),
-              SizedBox(height: 20),
-              ListTile(
-                onTap: () {
-                  widget.toggleTheme();
-                },
-                leading: Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.deepPurple,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    widget.isDarkMode ? Icons.dark_mode : Icons.light_mode,
-                    color: Colors.white,
-                    size: 35,
-                  ),
-                ),
-                title: Text(
-                  "${widget.isDarkMode ? 'Dark Mode' : 'Light Mode'}",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20,
-                  ),
-                ),
-                trailing: Icon(Icons.arrow_forward_ios_rounded),
-              ),
-              SizedBox(height: 20),
-              Divider(height: 40),
-              ListTile(
-                onTap: () {
-                  AuthenticationService().logout();
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, '/login', (route) => false);
-                },
-                leading: Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.deepPurple,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.output_outlined,
-                    color: Colors.white,
-                    size: 35,
-                  ),
-                ),
-                title: Text(
-                  "Log Out",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+            SizedBox(height: 30),
+            _buildListTile(
+              icon: Icons.person,
+              title: "Profile",
+              onTap: _navigateToProfilePage,
+            ),
+            SizedBox(height: 20),
+            _buildListTile(
+              icon: widget.isDarkMode ? Icons.dark_mode : Icons.light_mode,
+              title: "${widget.isDarkMode ? 'Dark Mode' : 'Light Mode'}",
+              onTap: widget.toggleTheme,
+            ),
+            SizedBox(height: 20),
+            Divider(height: 40),
+            _buildListTile(
+              icon: Icons.output_outlined,
+              title: "Log Out",
+              onTap: () {
+                AuthenticationService().logout();
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  '/login',
+                  (route) => false,
+                );
+              },
+            ),
+          ],
         ),
       ),
+    );
+  }
+
+  Widget _buildListTile({
+    required IconData icon,
+    required String title,
+    required Function onTap,
+  }) {
+    return ListTile(
+      onTap: () => onTap(),
+      leading: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.deepPurple,
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          icon,
+          color: Colors.white,
+          size: 35,
+        ),
+      ),
+      title: Text(
+        title,
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: 20,
+        ),
+      ),
+      trailing: Icon(Icons.arrow_forward_ios_rounded),
     );
   }
 }

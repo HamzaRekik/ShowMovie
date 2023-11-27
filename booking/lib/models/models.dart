@@ -18,10 +18,10 @@ class Movie {
     return Movie(
       image: json["poster_path"] ?? '',
       background: json["backdrop_path"] ?? '',
-      title: json['title'] ?? json['name'] ?? '',
-      description: json['overview'] ?? '',
+      title: json['title'] ?? json['name'],
+      description: json['overview'],
       rate: (json['vote_average'] ?? 0).toDouble(),
-      date: json['release_date'] ?? json["first_air_date"] ?? '',
+      date: json['release_date'] ?? json["first_air_date"],
     );
   }
 }

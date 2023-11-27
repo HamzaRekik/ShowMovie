@@ -146,7 +146,7 @@ class AuthenticationService {
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.deepPurple,
           behavior: SnackBarBehavior.floating,
           content: Text(
             'Error sending password reset email. Please try again.',

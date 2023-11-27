@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import '../models/models.dart';
 
 class MoviesBuilder extends StatefulWidget {
-  String? title;
   @override
   State<MoviesBuilder> createState() => _MoviesBuilderState();
 }

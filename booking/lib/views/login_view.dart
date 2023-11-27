@@ -1,9 +1,11 @@
 import 'package:booking/services/authentication_service.dart';
+import 'package:booking/views/reset_password.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +54,20 @@ class LoginPage extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 200),
-                          child: Text("Mot de passe oublié ?"),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return ResetPasswordPage();
+                            }));
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.only(left: 200),
+                            child: Text(
+                              "Mot de passe oublié ?",
+                              style: TextStyle(color: Colors.deepPurple),
+                            ),
+                          ),
                         ),
                         const SizedBox(
                           height: 25,

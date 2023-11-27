@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../models/models.dart';
 
 class MovieWidget extends StatelessWidget {
@@ -9,69 +8,92 @@ class MovieWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      margin: EdgeInsets.only(bottom: 16),
       height: 200,
-      width: 340,
-      child: Row(
-        children: [
-          Expanded(
-              child: Image(
-            image:
-                NetworkImage("https://image.tmdb.org/t/p/w500${movie.image}"),
-            height: 200,
-            width: 200,
-            fit: BoxFit.cover,
-          )),
-          Expanded(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        "https://image.tmdb.org/t/p/w500${movie.image}"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
               flex: 2,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: Container(
+                padding: EdgeInsets.all(16),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                        child: Row(
-                      children: [
-                        Expanded(
-                            flex: 4,
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                movie.title,
-                                textAlign: TextAlign.left,
-                              ),
-                            )),
-                        Container(
-                            child: Text(
-                          "${movie.rate.round()}",
-                        ))
-                      ],
-                    )),
-                    Expanded(
-                        child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        movie.date,
-                        textAlign: TextAlign.left,
+                    Text(
+                      movie.title,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
-                    )),
-                    Expanded(
-                        flex: 6,
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            maxLines: 9,
-                            overflow: TextOverflow.ellipsis,
-                            movie.description,
-                            textAlign: TextAlign.left,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Text(
+                          '${movie.rate.round()}/10',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[600],
                           ),
-                        )),
+                        ),
+                        SizedBox(width: 4),
+                        Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                          size: 18,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Release Date: ${movie.date}',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Expanded(
+                      child: Text(
+                        movie.description,
+                        style: TextStyle(fontSize: 14),
+                        maxLines: 5,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ],
                 ),
-              ))
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
