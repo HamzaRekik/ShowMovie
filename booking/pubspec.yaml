@@ -46,6 +46,7 @@ dependencies:
   circular_bottom_navigation: ^2.3.0
   dio: ^5.3.4
   image_picker: ^1.0.4
+  sqflite: ^2.3.0
   
 
 dev_dependencies:
