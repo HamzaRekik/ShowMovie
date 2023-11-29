@@ -49,6 +49,7 @@ class _AddFilmPageState extends State<AddFilmPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
         title: Text('Add Film'),
       ),
       body: SingleChildScrollView(
@@ -79,6 +80,9 @@ class _AddFilmPageState extends State<AddFilmPage> {
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple,
+              ),
               onPressed: _pickImage,
               child: Text('Pick Image'),
             ),
@@ -86,6 +90,9 @@ class _AddFilmPageState extends State<AddFilmPage> {
             if (_pickedImage != null) Image.file(File(_pickedImage!.path)),
             SizedBox(height: 24.0),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple,
+              ),
               onPressed: () {
                 // Récupérer les valeurs des contrôleurs
                 String title = _titleController.text;

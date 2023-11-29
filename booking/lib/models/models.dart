@@ -1,4 +1,5 @@
 class Movie {
+  int id;
   String image;
   String background;
   String title;
@@ -6,6 +7,7 @@ class Movie {
   double rate;
   String date;
   Movie({
+    required this.id,
     required this.image,
     required this.background,
     required this.title,
@@ -16,11 +18,12 @@ class Movie {
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
+      id: json["id"],
       image: json["poster_path"] ?? '',
       background: json["backdrop_path"] ?? '',
       title: json['title'] ?? json['name'],
       description: json['overview'],
-      rate: (json['vote_average'] ?? 0).toDouble(),
+      rate: json['vote_average'],
       date: json['release_date'] ?? json["first_air_date"],
     );
   }

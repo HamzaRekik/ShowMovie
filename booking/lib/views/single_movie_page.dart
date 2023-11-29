@@ -1,4 +1,5 @@
 import 'package:booking/services/favourite_movies_service.dart';
+import 'package:booking/views/trailer_player.dart';
 import 'package:flutter/material.dart';
 import '../models/models.dart';
 
@@ -91,20 +92,47 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             : Icon(Icons.favorite),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Image.network(
-              "https://image.tmdb.org/t/p/w500${widget.movie.image}",
-              fit: BoxFit.cover,
+            child: Container(
+              height: double.infinity,
+              child: Image.network(
+                "https://image.tmdb.org/t/p/w500${widget.movie.image}",
+                fit: BoxFit.cover,
+              ),
             ),
+          ),
+          Row(
+            children: [
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurple,
+                    ),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return MyVideoPlayer(
+                          movieID: widget.movie.id, //
+                        );
+                      }));
+                    },
+                    icon: Icon(Icons.play_arrow),
+                    label: Text("Watch Trailer !")),
+              ),
+              SizedBox(
+                width: 10,
+              )
+            ],
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

@@ -47,6 +47,8 @@ dependencies:
   dio: ^5.3.4
   image_picker: ^1.0.4
   sqflite: ^2.3.0
+  youtube_player_flutter: ^8.1.2
+  flutter_inappwebview: ^5.8.0
   
 
 dev_dependencies:

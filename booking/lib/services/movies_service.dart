@@ -38,4 +38,18 @@ class MoviesService {
       return [];
     }
   }
+
+  Future<String> getTrailer({required int movieID}) async {
+    try {
+      Options options =
+          Options(headers: {'Authorization': 'Bearer $bearerToken'});
+      Response response = await dio
+          .get('$url/movie/$movieID/videos?language=en-US', options: options);
+      String videoKey = response.data['results'][0]['key'];
+      return videoKey;
+    } on DioException catch (e) {
+      print(e);
+      return '';
+    }
+  }
 }

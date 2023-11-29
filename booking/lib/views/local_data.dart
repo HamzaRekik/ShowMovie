@@ -30,7 +30,6 @@ class _LocalDataState extends State<LocalData> {
     var classes = await _clService.listeClasses();
     setState(() {
       _clList = classes.cast<Movie>();
-      print(_clList[0].date);
     });
   }
 
@@ -49,6 +48,9 @@ class _LocalDataState extends State<LocalData> {
       slivers: [
         SliverToBoxAdapter(
           child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.deepPurple,
+            ),
             onPressed: () {
               Navigator.push(
                 context,
